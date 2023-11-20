@@ -11,10 +11,14 @@ Hocket is a WebSocket-like communication API that utilizes HTTP instead of the p
 
 WebSocket communication typically involves two actions: sending a message and getting a message. Hocket achieves this using two REST endpoints:
 
-- `/api/send/:topic`
+- `/api/send/:topic` - **POST**
   Posts a message to a topic.
-- `/api/get/:topic`
+- `/api/get/:topic` - **GET**
   Retrieves the latest message from a topic.
+- `/api/get_all/:topic` (*extra*) - **GET**
+  Retrieves all the messages from a topic.
+- `/api/delete/:topic` (*extra*) - **DELETE**
+  Deletes the topic.
 
 ## Example
 
