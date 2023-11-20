@@ -81,6 +81,6 @@ app.get("/api/get/:topic", (req, res) => {
 	}
 });
 
-app.listen(() => {
+app.listen(PORT, () => {
 	console.log("Express server listening on port", PORT);
 });
