@@ -21,13 +21,14 @@ app.post("/api/send/:topic", (req, res) => {
 		});
 	}
 
-	const messageData = req.body.content;
+	const messageData = req.body;
 
 	if (!messageData || !messageData.author || !messageData.content) {
 		res.status(400);
 		return res.json({
 			status: "error",
 			message: "Invalid message format. Author and content are required.",
+			echo: messageData,
 		});
 	}
 
@@ -68,9 +69,10 @@ app.get("/api/get/:topic", (req, res) => {
 	}
 	if (topics.has(topic)) {
 		res.status(200);
+		let data = topics.get(topic);
 		return res.json({
 			status: "success",
-			data: topics.get(data),
+			data: data[data.length - 1],
 		});
 	} else {
 		res.status(400);
