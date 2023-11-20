@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>olivejam</title>
+		<link rel="stylesheet" href="https://stackedit.io/style.css" />
+	</head>
+
+	<body class="stackedit">
+		<div class="stackedit__left">
+			<div class="stackedit__toc">
+				<ul>
+					<li>
+						<a href="#hocket">Hocket</a>
+						<ul>
+							<li><a href="#about">About</a></li>
+							<li><a href="#how-it-works">How it works</a></li>
+							<li><a href="#example">Example</a></li>
+							<li><a href="#miscellaneous">Miscellaneous</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="stackedit__right">
+			<div class="stackedit__html">
+				<h1 id="hocket">Hocket</h1>
+				<blockquote>
+					<p>
+						A WebSocket-like API that operates on HTTP “REST” API.
+					</p>
+				</blockquote>
+				<h2 id="about">About</h2>
+				<p>
+					Hocket is a WebSocket-like communication API that utilizes
+					HTTP instead of the popular WebSocket protocol.
+					<em>It’s just WebSocket</em>, sometimes.
+				</p>
+				<h2 id="how-it-works">How it works</h2>
+				<p>
+					WebSocket communication typically involves two actions:
+					sending a message and getting a message. Hocket achieves
+					this using two REST endpoints:
+				</p>
+				<ul>
+					<li>
+						<code>/api/send/:topic</code><br />
+						Posts a message to a topic.
+					</li>
+					<li>
+						<code>/api/get/:topic</code><br />
+						Retrieves the latest message from a topic.
+					</li>
+				</ul>
+				<h2 id="example">Example</h2>
+				<h3 id="post"><strong>POST</strong></h3>
+				<p>
+					<strong>URL:</strong>
+					<a href="https://myhostedhocket.com/api/send/cooking"
+						>https://myhostedhocket.com/api/send/cooking</a
+					><br />
+					<strong>Request:</strong>
+				</p>
+				<pre
+					class="language-json"
+				><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"author"</span><span class="token punctuation">:</span> <span class="token string">"Joe Mama"</span><span class="token punctuation">,</span>         <span class="token comment">// Required</span>
+	<span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"Hello there!"</span><span class="token punctuation">,</span>    <span class="token comment">// Required</span>
+	<span class="token string">"attachment"</span><span class="token punctuation">:</span> <span class="token string">"&lt;base64 data&gt;"</span> <span class="token comment">// Optional</span>
+<span class="token punctuation">}</span>
+</code></pre>
+				<p><strong>Response:</strong></p>
+				<pre
+					class="language-json"
+				><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"success"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+				<h3 id="get"><strong>GET</strong></h3>
+				<p>
+					<strong>URL:</strong>
+					<a href="https://myhostedhocket.com/api/get/cooking"
+						>https://myhostedhocket.com/api/get/cooking</a
+					><br />
+					<strong>Response:</strong>
+				</p>
+				<pre
+					class="language-json"
+				><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"success"</span><span class="token punctuation">,</span>
+	<span class="token string">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+		<span class="token string">"author"</span><span class="token punctuation">:</span> <span class="token string">"Joe Mama"</span><span class="token punctuation">,</span>         <span class="token comment">// Required</span>
+		<span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"Hello there!"</span><span class="token punctuation">,</span>    <span class="token comment">// Required</span>
+		<span class="token string">"attachment"</span><span class="token punctuation">:</span> <span class="token string">"&lt;base64 data&gt;"</span> <span class="token comment">// Optional</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+				<h2 id="miscellaneous">Miscellaneous</h2>
+				<h3 id="why-was-this-made">Why was this made?</h3>
+				<p>
+					Because normal WebSocket communication for my totally legit
+					projects might’ve been sus for Windows Defender.
+				</p>
+			</div>
+		</div>
+	</body>
+</html>
