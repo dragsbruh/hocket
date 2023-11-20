@@ -1,23 +1,25 @@
 {
-  "name": "hocket",
-  "version": "1.0.0",
-  "description": "HTTP based message streamer",
-  "main": "index.js",
-  "scripts": {
-    "test": "node ."
-  },
-  "keywords": [
-    "http",
-    "messaging",
-    "socketlike",
-    "websocketlike",
-    "communication",
-    "data"
-  ],
-  "author": "dragsbruh",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2"
-  }
+	"name": "hocket",
+	"version": "1.0.0",
+	"description": "HTTP based message streamer",
+	"main": "index.js",
+	"scripts": {
+		"test": "node .",
+		"build": "npm install",
+		"start": "node ."
+	},
+	"keywords": [
+		"http",
+		"messaging",
+		"socketlike",
+		"websocketlike",
+		"communication",
+		"data"
+	],
+	"author": "dragsbruh",
+	"license": "Apache-2.0",
+	"dependencies": {
+		"dotenv": "^16.3.1",
+		"express": "^4.18.2"
+	}
 }
