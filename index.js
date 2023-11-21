@@ -23,7 +23,13 @@ app.post("/api/send/:topic", (req, res) => {
 
 	const messageData = req.body;
 
-	if (!messageData || !messageData.author || !messageData.content) {
+	if (
+		!messageData ||
+		!messageData.author ||
+		!messageData.content ||
+		!(typeof messageData.author === "string") ||
+		!(typeof messageData.content === "string")
+	) {
 		res.status(400);
 		return res.json({
 			status: "error",
@@ -32,12 +38,22 @@ app.post("/api/send/:topic", (req, res) => {
 		});
 	}
 
-	const attachment = messageData.attachment || null;
+	const attachments = messageData.attachments || null;
+
+	if (attachments && !Array.isArray(attachments)) {
+		res.status(400);
+		return res.json({
+			status: "error",
+			message:
+				"Invalid attachments format. Attachments must be an array.",
+			echo: messageData,
+		});
+	}
 
 	const message = {
 		author: messageData.author,
 		content: messageData.content,
-		attachment: attachment,
+		attachments: attachments,
 		createdAt: Date.now(),
 	};
 
