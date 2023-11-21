@@ -31,7 +31,7 @@ WebSocket communication typically involves two actions: sending a message and ge
 {
  "author": "Joe Mama",         // Required
  "content": "Hello there!",    // Required
- "attachment": "<base64 data>" // Optional
+ "attachments": ["<base64 data>"] // Optional
 }
 ```
 
@@ -54,7 +54,7 @@ WebSocket communication typically involves two actions: sending a message and ge
  "data": {
   "author": "Joe Mama",         // Required
   "content": "Hello there!",    // Required
-  "attachment": "<base64 data>" // Optional
+  "attachments": ["<base64 data>"] // Optional
  }
 }
 ```
