@@ -147,6 +147,34 @@ app.delete("/api/delete/:topic", (req, res) => {
 	}
 });
 
+app.post("/api/delete/:topic", (req, res) => {
+	const topic = req.params.topic;
+
+	if (topic === undefined) {
+		res.status(400);
+		return res.json({
+			status: "error",
+			message:
+				"Please specify a topic to delete. Ex: '/api/get/mytopic'.",
+		});
+	}
+	if (topics.has(topic)) {
+		res.status(200);
+		let data = topics.get(topic);
+		topics.delete(topic);
+		return res.json({
+			status: "success",
+			data: data,
+		});
+	} else {
+		res.status(400);
+		return res.json({
+			status: "error",
+			message: "Topic not found.",
+		});
+	}
+});
+
 app.listen(PORT, () => {
 	console.log("Express server listening on port", PORT);
 });
