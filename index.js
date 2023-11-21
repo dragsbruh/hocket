@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
-
+const uuid = require("uuid").v4;
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -55,6 +55,7 @@ app.post("/api/send/:topic", (req, res) => {
 		content: messageData.content,
 		attachments: attachments,
 		createdAt: Date.now(),
+		id: uuid(),
 	};
 
 	if (!topics.has(topic)) {
