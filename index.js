@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const uuid = require("uuid").v4;
 const PORT = process.env.PORT || 3000;
 const WebSocketServer = require("ws").WebSocketServer;
@@ -9,6 +10,7 @@ const app = express();
 const wss = new WebSocketServer({ port: 8000 });
 
 app.use(express.json());
+app.use(cors());
 
 var topics = new Map();
 var subscribers = new Map();
