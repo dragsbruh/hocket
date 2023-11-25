@@ -3,11 +3,15 @@ require("dotenv").config();
 const express = require("express");
 const uuid = require("uuid").v4;
 const PORT = process.env.PORT || 3000;
+const WebSocketServer = require("ws").WebSocketServer;
+
 const app = express();
+const wss = new WebSocketServer({ port: 8000 });
 
 app.use(express.json());
 
 var topics = new Map();
+var subscribers = new Map();
 
 app.post("/api/send/:topic", (req, res) => {
 	const topic = req.params.topic;
@@ -57,6 +61,12 @@ app.post("/api/send/:topic", (req, res) => {
 		createdAt: Date.now(),
 		id: uuid(),
 	};
+
+	subscribers.forEach(function (subscriber) {
+		if (subscriber.topic === topic) {
+			subscriber.ws.send(JSON.stringify(message));
+		}
+	});
 
 	if (!topics.has(topic)) {
 		topics.set(topic, []);
@@ -176,6 +186,45 @@ app.post("/api/delete/:topic", (req, res) => {
 	}
 });
 
+wss.on("connection", function (ws) {
+	const subid = uuid();
+	subscribers.set(subid, {
+		id: subid,
+		ws: ws,
+		topic: null,
+	});
+	ws.on("message", function (data) {
+		try {
+			data = JSON.parse(data);
+			if (data.topic == undefined) {
+				throw new Error("Invalid topic: " + data.topic);
+			}
+		} catch (err) {
+			ws.send(
+				JSON.stringify({
+					status: "error",
+					message: err.message,
+				})
+			);
+			return;
+		}
+		subscribers.set(subid, {
+			id: subid,
+			ws: ws,
+			topic: data.topic,
+		});
+		ws.send(
+			JSON.stringify({
+				status: "success",
+			})
+		);
+	});
+	ws.on("disconnect", function () {
+		subscribers.delete(subid);
+	});
+});
+
 app.listen(PORT, () => {
 	console.log("Express server listening on port", PORT);
 });
+console.log("WebSocket server listening on port", 8000);
